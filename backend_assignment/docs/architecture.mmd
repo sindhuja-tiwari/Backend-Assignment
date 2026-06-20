@@ -1,0 +1,15 @@
+flowchart LR
+    Client["Client or Reviewer"] --> API["FastAPI API"]
+    API --> DB[("PostgreSQL")]
+    API --> Redis[("Redis Broker")]
+    API --> Uploads["Shared Upload Volume"]
+    Redis --> Worker["Celery Worker"]
+    Uploads --> Worker
+    Worker --> Processor["CSV Cleaning and Validation"]
+    Processor --> LLM["LLM Classifier or Heuristic Fallback"]
+    LLM --> Worker
+    Worker --> DB
+    Client --> Status["GET /jobs/{job_id}/status"]
+    Client --> Results["GET /jobs/{job_id}/results"]
+    Status --> API
+    Results --> API

@@ -109,15 +109,4 @@ curl -o clean.csv http://localhost:8000/jobs/replace-with-returned-id/export
 - Drops duplicate `txn_id` rows
 - Flags high-value transactions, non-INR transactions, suspicious notes, and unknown statuses
 
-## Tests
 
-The tests use SQLite and eager Celery mode so they run without Docker services:
-
-```bash
-pip install -r requirements.txt
-pytest
-```
-
-## Architecture Diagram
-
-Open `docs/architecture.drawio` in diagrams.net, or use the Mermaid source in `docs/architecture.mmd`.

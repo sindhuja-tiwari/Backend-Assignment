@@ -1,0 +1,69 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Transaction Pipeline" id="0">
+    <mxGraphModel dx="911" dy="593" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="client" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Client / Reviewer" vertex="1">
+          <mxGeometry height="60" width="140" x="40" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="api" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="FastAPI API&#xa;upload, status, results" vertex="1">
+          <mxGeometry height="70" width="170" x="250" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="redis" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="Redis&#xa;Celery broker" vertex="1">
+          <mxGeometry height="70" width="130" x="500" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="db" parent="1" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#fff2cc;strokeColor=#d6b656;" value="PostgreSQL&#xa;jobs, transactions, summaries" vertex="1">
+          <mxGeometry height="80" width="180" x="760" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="uploads" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Shared upload volume" vertex="1">
+          <mxGeometry height="55" width="150" x="490" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="worker" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="Celery Worker" vertex="1">
+          <mxGeometry height="65" width="150" x="490" y="175" as="geometry" />
+        </mxCell>
+        <mxCell id="processor" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="CSV cleaning&#xa;validation&#xa;dedupe" vertex="1">
+          <mxGeometry height="80" width="150" x="500" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="llm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" value="LLM adapter&#xa;Gemini or fallback" vertex="1">
+          <mxGeometry height="70" width="160" x="740" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="client" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="api" target="redis">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="api" target="db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="api" target="uploads">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="redis" target="worker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="uploads" target="worker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" style="entryX=0.878;entryY=-0.042;entryDx=0;entryDy=0;entryPerimeter=0;" target="processor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="632" y="320" />
+            </Array>
+            <mxPoint x="632" y="240" as="sourcePoint" />
+            <mxPoint x="630" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="processor" target="llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" style="" target="db">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="407" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
